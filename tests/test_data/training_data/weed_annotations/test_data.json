@@ -1,0 +1,1 @@
+{"image_name": "TOM_30_GORK_camera_1_2021-11-02-11-48-36_156599264_tile-0_.jpg", "image_height": 600, "image_width": 1200, "labels": [{"id": 1120, "x1": 836, "x2": 956, "y1": 263, "y2": 376, "class_name": "weed"}, {"id": 1121, "x1": 524, "x2": 600, "y1": 450, "y2": 512, "class_name": "weed"}, {"id": 1122, "x1": 13, "x2": 144, "y1": 297, "y2": 442, "class_name": "weed"}]}

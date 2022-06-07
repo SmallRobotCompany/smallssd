@@ -1,0 +1,13 @@
+name: smallssd
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.8
+  - black
+  - pytest
+  - flake8
+  - pip
+  - mamba
+  - pip:
+    - -e .

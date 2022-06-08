@@ -24,4 +24,6 @@ jobs:
       run: |
         python -m black --check --diff .
         python -m pytest tests
-        cd ..
+        cd benchmarks
+        pip install -r requirements.txt
+        python -m pytest tests

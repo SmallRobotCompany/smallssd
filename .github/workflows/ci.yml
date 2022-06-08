@@ -24,6 +24,3 @@ jobs:
       run: |
         python -m black --check --diff .
         python -m pytest tests
-        cd benchmarks
-        pip install -r requirements.txt
-        python -m pytest tests -m "not integration"

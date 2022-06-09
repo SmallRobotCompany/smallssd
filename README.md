@@ -28,4 +28,4 @@ pip install -e .
 ```
 
 ### License
-`smallSSD` has a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Internationa](https://github.com/smallrobotcompany/smallssd/blob/main/LICENSE) license.
+`smallSSD` has a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://github.com/smallrobotcompany/smallssd/blob/main/LICENSE) license.

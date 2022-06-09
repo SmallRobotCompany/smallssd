@@ -32,7 +32,7 @@ class BaseDataset:
         self.datafolder = root / datafolder_name
         if not self.datafolder.exists():
             if download:
-                download_and_extract_archive(root, f"{datafolder_name}.tar.gz")
+                download_and_extract_archive(root, datafolder_name)
             else:
                 raise FileNotFoundError(
                     f"{datafolder_name} does not exist in {root}, "

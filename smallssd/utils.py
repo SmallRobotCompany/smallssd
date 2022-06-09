@@ -1,7 +1,7 @@
 from urllib.request import urlopen, Request
 from pathlib import Path
 import tarfile
-import tqdm
+from tqdm import tqdm
 
 from .config import DATASET_URL
 

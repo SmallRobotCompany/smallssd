@@ -22,3 +22,8 @@ def test_unlabelled_data():
     d = data.UnlabelledData(Path(__file__).parent / "test_data")
     assert len(d) == 1
     assert isinstance(d[0], torch.Tensor)
+
+
+def test_data_downloads_and_unpacks_correctly(tmp_path):
+    d = data.LabelledData(root=tmp_path, eval=True, download=True)
+    assert len(d) == 156

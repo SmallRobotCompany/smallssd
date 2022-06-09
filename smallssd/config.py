@@ -14,5 +14,5 @@ CROP_ANNOTATIONS = "crop_annotations"
 IMAGES = "images"
 WEED_ANNOTATIONS = "weed_annotations"
 
-DATASET_VERSION_ID = 6598516
+DATASET_VERSION_ID = 6627327
 DATASET_URL = f"https://zenodo.org/record/{DATASET_VERSION_ID}"

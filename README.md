@@ -21,10 +21,10 @@ More in-depth examples on how to get started with this data are available in the
 
 ### Installation
 
-This package will be uploaded to PyPi. However, the current way to install it is to clone this repository, and to pip install the local repository:
+`smallSSD` can be installed with the following command:
 
 ```bash
-pip install -e .
+pip install smallssd
 ```
 
 ### License

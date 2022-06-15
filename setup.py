@@ -1,11 +1,22 @@
 from setuptools import setup
 
 
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
+long_description = "\n".join(
+    [line for line in long_description.split("\n") if not line.startswith("<img")]
+)
+
+
 setup(
     name="smallssd",
     description="Open source agricultural data",
     author="Gabriel Tseng",
     author_email="gabrieltseng95@gmail.com",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/smallrobotcompany/smallssd",
     version="0.0.1",
     classifiers=[
         "Programming Language :: Python :: 3",

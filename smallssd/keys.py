@@ -1,6 +1,3 @@
-from re import L
-
-
 class RawLabelKeys:
     IMAGE_NAME = "image_name"
     HEIGHT = "image_height"

@@ -2,7 +2,7 @@
 
 `smallSSD` is an open source agricultural semi-supervised object detection dataset, containing **960** images labelled with wheat and weed bounding boxes and **100,032** unlabelled images.
 
-All images were collected by the [Small Robot Company](https://www.smallrobotcompany.com/)'s Tom robot in 8 experimental fields with varying drill rates and fertilizer and herbicide application.
+All images were collected by the [Small Robot Company](https://www.smallrobotcompany.com/)'s Tom robot in 8 experimental fields with varying drill rates and fertilizer and herbicide application, and are available on [Zenodo](https://doi.org/10.5281/zenodo.6598515).
 
 <img src="diagrams/image_collection.png" alt="Image Collection Process" height="200px"/>
 
@@ -15,7 +15,7 @@ from smallssd.data import LabelledData, UnlabelledData
 labelled_loader = DataLoader(LabelledData())
 ```
 
-This code expects the labelled data to be in the [`data`](data) folder.
+By default, this code expects the labelled data to be in the [`data`](data) folder (and will automatically download it from [Zenodo](https://doi.org/10.5281/zenodo.6598515) if it is not available there).
 
 More in-depth examples on how to get started with this data are available in the [benchmarks](benchmarks), where we train torchvision models against the data using both fully-supervised and pseudo labelling approaches.
 

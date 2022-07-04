@@ -17,7 +17,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/smallrobotcompany/smallssd",
-    version="0.0.2",
+    version="0.0.3",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: Other/Proprietary License",

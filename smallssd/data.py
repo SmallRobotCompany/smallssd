@@ -113,7 +113,7 @@ class LabelledData(BaseDataset):
 
         return {
             LabelKeys.BOXES: torch.tensor(boxes).float(),
-            LabelKeys.LABELS: torch.tensor(labels).int(),
+            LabelKeys.LABELS: torch.tensor(labels).to(torch.int64),
         }
 
     @staticmethod

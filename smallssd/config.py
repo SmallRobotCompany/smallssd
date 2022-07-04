@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-DATAFOLDER_PATH = Path(__file__).parent.parent / "data"
+DATAFOLDER_PATH = Path(__file__).parent / "data"
 
 TRAINING_DATAFOLDER_NAME = "training_data"
 EVAL_DATAFOLDER_NAME = "eval_data"

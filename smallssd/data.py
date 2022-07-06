@@ -31,6 +31,7 @@ class BaseDataset:
         download: bool = True,
     ):
         self.root = root
+        self.root.mkdir(exist_ok=True)
         self.datafolder = root / datafolder_name
         if not self.datafolder.exists():
             if download:

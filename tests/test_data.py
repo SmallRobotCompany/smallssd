@@ -6,6 +6,7 @@ from torchvision.models.detection.retinanet import RetinaNetHead, retinanet_resn
 
 from smallssd import data
 from smallssd.keys import LabelKeys, CLASSNAME_TO_IDX
+from smallssd.config import IMAGES
 
 from typing import Any, Optional
 
@@ -62,3 +63,20 @@ def test_data_with_model():
     x, y = d[0]
 
     _ = model([x], [y])
+
+
+def test_split(tmp_path):
+
+    image_folder_name = IMAGES
+    image_path = tmp_path / image_folder_name
+    image_path.mkdir()
+
+    for i in range(10):
+        (image_path / f"{i}.jpg").touch()
+
+    base_ds = data.BaseDataset(tmp_path.parent, tmp_path.name, download=False)
+    assert len(base_ds) == 10
+
+    ds_1, ds_2 = base_ds.split(ratio=0.2)
+    assert len(ds_1) == 8
+    assert len(ds_2) == 2

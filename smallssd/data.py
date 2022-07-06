@@ -1,3 +1,5 @@
+from copy import deepcopy
+from random import shuffle
 import torch
 from pathlib import Path
 import json
@@ -47,6 +49,38 @@ class BaseDataset:
 
     def __getitem__(self, idx: int):
         raise NotImplementedError
+
+    def split(
+        self,
+        transforms: Optional[Tuple[Callable, Callable]] = None,
+        ratio: float = 0.2,
+    ) -> Tuple["BaseDataset", "BaseDataset"]:
+        r"""
+        Split a dataset into two. Useful for creating a training
+        and validation dataset
+
+        :param transforms: An optional tuple of two transforms to replace
+            current transforms
+        :param ratio: The ratio of image paths to assign to the second dataset.
+        """
+        ds2 = deepcopy(self)
+
+        image_paths = self.image_paths
+        shuffle(image_paths)
+        ds2_size = int(len(image_paths) * ratio)
+
+        ds2_paths = image_paths[:ds2_size]
+        ds1_paths = image_paths[ds2_size:]
+
+        self.image_paths = ds1_paths
+        ds2.image_paths = ds2_paths
+
+        if transforms is not None:
+            ds1_augs, ds2_augs = transforms
+            self.transforms = ds1_augs
+            ds2.transforms = ds2_augs
+
+        return self, ds2
 
 
 class LabelledData(BaseDataset):

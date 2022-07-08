@@ -42,7 +42,7 @@ class BaseDataset:
                     f"it can be downloaded by setting download=True"
                 )
 
-        self.image_paths = list((self.datafolder / IMAGES).glob("*.jpg"))
+        self.image_paths = list((self.datafolder / IMAGES).glob("[!._]*.jpg"))
         self.transforms = transforms
 
     def __len__(self) -> int:

@@ -15,7 +15,7 @@ from smallssd.data import LabelledData, UnlabelledData
 labelled_loader = DataLoader(LabelledData())
 ```
 
-By default, this code expects the labelled data to be in the [`data`](data) folder (and will automatically download it from [Zenodo](https://doi.org/10.5281/zenodo.6598515) if it is not available there).
+By default, this code expects the labelled data to be in the [`data`](smallssd/data) folder (and will automatically download it from [Zenodo](https://doi.org/10.5281/zenodo.6598515) if it is not available there).
 
 More in-depth examples on how to get started with this data are available in the [benchmarks](benchmarks), where we train torchvision models against the data using both fully-supervised and pseudo labelling approaches.
 

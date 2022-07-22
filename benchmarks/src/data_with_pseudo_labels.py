@@ -48,15 +48,27 @@ class PseudoLabelledData(UnlabelledData):
         flat_targets = list(chain.from_iterable(predictions))
         assert len(flat_targets) == len(self)
         boxes, labels = [], []
-        for target in flat_targets:
+
+        image_indices_without_labels = []
+        for idx, target in enumerate(flat_targets):
             boxes_np = target[LabelKeys.BOXES].cpu().numpy()
             labels_np = target[LabelKeys.LABELS].cpu().numpy()
             scores_np = target["scores"].cpu().numpy()
 
             mask = self._create_mask(labels_np, scores_np)
-            boxes.append(boxes_np[mask])
-            labels.append(labels_np[mask])
+            boxes_masked = boxes_np[mask]
+            if len(boxes_masked) == 0:
+                image_indices_without_labels.append(idx)
+            else:
+                boxes.append(boxes_masked)
+                labels.append(labels_np[mask])
 
+        assert len(boxes) == (len(self) - len(image_indices_without_labels))
+        self.image_paths = [
+            im
+            for idx, im in enumerate(self.image_paths)
+            if idx not in image_indices_without_labels
+        ]
         self.targets = pd.DataFrame({LabelKeys.BOXES: boxes, LabelKeys.LABELS: labels})
         self.inference_run = True
 

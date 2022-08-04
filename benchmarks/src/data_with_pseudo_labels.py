@@ -1,6 +1,7 @@
 from pathlib import Path
 from random import choice, shuffle
 import numpy as np
+from copy import deepcopy
 
 import torch
 from torch import nn
@@ -30,7 +31,9 @@ class PseudoLabelledData(UnlabelledData):
 
         self.augmentations = augmentations
 
-        self.teacher = teacher_model
+        self.teacher = deepcopy(teacher_model)
+        for param in self.teacher.parameters():
+            param.detach_()
         self.teacher.eval()
 
         if max_unlabelled_images is not None:

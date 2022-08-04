@@ -56,16 +56,12 @@ def main(args=None):
     trainer.test(model, datamodule=datamodule)
 
     # then, use this model to generate predictions
-    psuedo_labels = PseudoLabelledData(root=DATAFOLDER_PATH)
-    psuedo_labels_dl = DataLoader(psuedo_labels, batch_size=1, shuffle=False)
+    psuedo_labels = PseudoLabelledData(root=DATAFOLDER_PATH, teacher_model=model.model)
 
     teacher_student_trainer = pl.Trainer(
         gpus=torch.cuda.device_count(),
         callbacks=[EarlyStopping(monitor=Metrics.MAP, mode="max", patience=10)],
     )
-
-    predictions = teacher_student_trainer.predict(model, psuedo_labels_dl)
-    psuedo_labels.add_targets(predictions)
 
     # finally, use these new predictions to continue training the model
     datamodule = update_datamodule(SmallSSDDataModule(args.workers), psuedo_labels)

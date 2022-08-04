@@ -1,7 +1,6 @@
 import argparse
 import sys
 import torch
-from torch.utils.data import DataLoader
 
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping

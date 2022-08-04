@@ -118,7 +118,6 @@ def update_datamodule(
     module: SmallSSDDataModule, psuedo_labels: PseudoLabelledData
 ) -> SmallSSDDataModule:
 
-    assert psuedo_labels.inference_run
     new_train_ds = PseudoAndRealLabels(module.train_ds, psuedo_labels)
     module.train_ds = new_train_ds
     return module

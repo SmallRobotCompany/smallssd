@@ -55,7 +55,9 @@ def main(args=None):
     trainer.test(model, datamodule=datamodule)
 
     # then, use this model to generate predictions
-    psuedo_labels = PseudoLabelledData(root=DATAFOLDER_PATH, teacher_model=model.model)
+    psuedo_labels = PseudoLabelledData(
+        root=DATAFOLDER_PATH, teacher_model=model.model, model_device=model.device
+    )
 
     teacher_student_trainer = pl.Trainer(
         gpus=torch.cuda.device_count(),

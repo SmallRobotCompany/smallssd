@@ -23,6 +23,7 @@ class PseudoLabelledData(UnlabelledData):
         self,
         root: Path,
         teacher_model: nn.Module,
+        teacher_device: torch.Device,
         max_unlabelled_images: Optional[int] = None,
         max_unlabelled_images_per_epoch: Optional[int] = MAX_PSUEDO_LABELLED_IMAGES,
         augmentations: Callable = train_val_augmentations(),
@@ -35,6 +36,7 @@ class PseudoLabelledData(UnlabelledData):
         for param in self.teacher.parameters():
             param.detach_()
         self.teacher.eval()
+        self.teacher_device = teacher_device
 
         if max_unlabelled_images is not None:
             shuffle(self.image_paths)
@@ -58,11 +60,11 @@ class PseudoLabelledData(UnlabelledData):
             (labels == CLASSNAME_TO_IDX["weed"]) & (scores >= 0.3)
         )
 
-    def add_targets(self, img: torch.Tensor, model: nn.Module) -> None:
+    def add_targets(self, img: torch.Tensor) -> None:
         # https://github.com/pytorch/pytorch/issues/13246#issuecomment-905703662
         with torch.no_grad():
-            model.eval()
-            target = model([img])[0]
+            self.teacher.eval()
+            target = self.teacher([img.to(device=self.teacher_device)])[0]
         boxes_np = target[LabelKeys.BOXES].cpu().numpy()
         labels_np = target[LabelKeys.LABELS].cpu().numpy()
         scores_np = target["scores"].cpu().numpy()
@@ -82,7 +84,7 @@ class PseudoLabelledData(UnlabelledData):
         image_dict = {
             "image": img.permute(1, 2, 0).numpy(),
         }
-        image_dict.update(self.add_targets(img, self.teacher))
+        image_dict.update(self.add_targets(img))
         image_dict_processed = self.augmentations(**image_dict)
 
         image = image_dict_processed["image"]

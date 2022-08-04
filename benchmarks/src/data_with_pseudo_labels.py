@@ -23,7 +23,7 @@ class PseudoLabelledData(UnlabelledData):
         self,
         root: Path,
         teacher_model: nn.Module,
-        teacher_device: torch.Device,
+        teacher_device: torch.device,
         max_unlabelled_images: Optional[int] = None,
         max_unlabelled_images_per_epoch: Optional[int] = MAX_PSUEDO_LABELLED_IMAGES,
         augmentations: Callable = train_val_augmentations(),

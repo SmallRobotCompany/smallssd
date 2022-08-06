@@ -74,7 +74,7 @@ class PseudoLabelledData(UnlabelledData):
         if len(boxes_masked) == 0:
             return None
         else:
-            return {LabelKeys.BOXES: boxes_np, LabelKeys.LABELS: labels_np[mask]}
+            return {"bboxes": boxes_np, LabelKeys.LABELS: labels_np[mask]}
 
     def __getitem__(self, idx: int):
         if self.mapper is not None:

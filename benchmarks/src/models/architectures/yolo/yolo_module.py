@@ -8,7 +8,6 @@ from torch import Tensor
 from torchvision.models.detection.transform import GeneralizedRCNNTransform
 
 from .yolo_layers import DetectionLayer, RouteLayer, ShortcutLayer
-from ....config import NMS_IOU_THRESHOLD
 
 from torchvision.ops import nms
 
@@ -53,7 +52,7 @@ class YOLO(nn.Module):
         self,
         network: nn.ModuleList,
         confidence_threshold: float = 0.2,
-        nms_threshold: float = NMS_IOU_THRESHOLD,
+        nms_threshold: float = 0.7,
         max_predictions_per_image: int = -1,
         image_height: int = 576,
         image_width: int = 576,

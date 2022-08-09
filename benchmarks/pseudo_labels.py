@@ -26,7 +26,7 @@ def parse_args(args):
         help="Chooses model architecture",
         type=str,
         default="FRCNN",
-        choices=["FRCNN", "RetinaNet", "SSD"],
+        choices=["FRCNN", "RetinaNet", "SSD", "YOLO"],
     )
     parser.add_argument(
         "--version",

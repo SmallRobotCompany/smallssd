@@ -8,14 +8,22 @@ from ..config import TEST_MAP_KWARGS
 
 from .architectures import STR2FUNC
 
-from typing import Dict, List
+from typing import Dict, List, Optional, Tuple
 
 
 class DetectionBase(LightningModule):
-    def __init__(self, model_base: str, learning_rate: float = 1e-5, **kwargs) -> None:
+    def __init__(
+        self, model_base: str, learning_rate: Optional[float] = None, **kwargs
+    ) -> None:
         super().__init__()
-        self.learning_rate = learning_rate
-        self.model: torch.nn.Module = STR2FUNC[model_base](**kwargs)
+        model_args: Tuple[torch.nn.Module, float] = STR2FUNC[model_base](**kwargs)
+        model, default_learning_rate = model_args
+        if learning_rate is None:
+            self.learning_rate = default_learning_rate
+        else:
+            self.learning_rate = learning_rate
+
+        self.model = model
 
     def forward(self, x):
         return self.model(x)

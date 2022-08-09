@@ -77,9 +77,24 @@ class PseudoLabelledData(UnlabelledData):
             return {"bboxes": boxes_masked, LabelKeys.LABELS: labels_np[mask]}
 
     def __getitem__(self, idx: int):
+
         if self.mapper is not None:
-            idx += self.max_unlabelled_images_per_epoch * choice(self.mapper)
-        img = super().__getitem__(idx)
+            sampled_idx = idx + self.max_unlabelled_images_per_epoch * choice(
+                self.mapper
+            )
+        else:
+            sampled_idx = idx
+        img = super().__getitem__(sampled_idx)
+        targets = self.add_targets(img)
+        while targets is None:
+            if self.mapper is not None:
+                sampled_idx = idx + self.max_unlabelled_images_per_epoch * choice(
+                    self.mapper
+                )
+            else:
+                sampled_idx = choice(list(range(len(self))))
+            img = super().__getitem__(sampled_idx)
+            targets = self.add_targets(img)
 
         image_dict = {
             "image": img.permute(1, 2, 0).numpy(),

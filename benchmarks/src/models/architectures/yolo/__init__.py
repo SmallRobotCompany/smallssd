@@ -4,6 +4,7 @@ import numpy as np
 
 from pathlib import Path
 
+from ....config import NUM_OUTPUT_CLASSES
 from .yolo_module import YOLO
 from .yolo_config import YOLOConfiguration, generate_config, DEFAULT_CLASSES
 from src.utils import download_from_url
@@ -88,7 +89,7 @@ def load_darknet_weights(weight_file, model):
 
 def initialize_yolo(
     # YOLO does not consider the background to be a unique class
-    num_classes: int,
+    num_classes: int = NUM_OUTPUT_CLASSES - 1,
     pretrained: bool = True,
     # https://github.com/AlexeyAB/darknet/issues/4983
     confidence_threshold: float = 0.005,

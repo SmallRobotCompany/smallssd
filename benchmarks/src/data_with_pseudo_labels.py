@@ -52,7 +52,7 @@ class PseudoLabelledData(UnlabelledData):
 
         image_indices_without_labels = []
         for idx, target in enumerate(flat_targets):
-            height, width = get_image_size(self[idx])
+            width, height = get_image_size(self[idx])
             boxes_np = target[LabelKeys.BOXES].cpu().numpy()
 
             boxes_np[:, :2] = np.clip(boxes_np[:, :2], a_min=0, a_max=None)

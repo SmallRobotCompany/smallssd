@@ -55,9 +55,9 @@ class PseudoLabelledData(UnlabelledData):
             height, width = get_image_size(self[idx])
             boxes_np = target[LabelKeys.BOXES].cpu().numpy()
 
-            boxes_np[:, 0:2] = np.clip(boxes_np[:, 0:2], a_min=0, a_max=None)
-            boxes_np[:, 3] = np.clip(boxes_np[:, 3], a_min=None, a_max=width)
-            boxes_np[:, 4] = np.clip(boxes_np[:, 4], a_min=None, a_max=height)
+            boxes_np[:, 0:2] = np.clip(boxes_np[:, :2], a_min=0, a_max=None)
+            boxes_np[:, 3] = np.clip(boxes_np[:, 2], a_min=None, a_max=width)
+            boxes_np[:, 4] = np.clip(boxes_np[:, 3], a_min=None, a_max=height)
 
             labels_np = target[LabelKeys.LABELS].cpu().numpy()
             scores_np = target["scores"].cpu().numpy()

@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 
 import torch
+from torchvision.transforms.functional import get_image_size
 
 from smallssd.data import UnlabelledData
 from smallssd.keys import LabelKeys, CLASSNAME_TO_IDX
@@ -51,7 +52,13 @@ class PseudoLabelledData(UnlabelledData):
 
         image_indices_without_labels = []
         for idx, target in enumerate(flat_targets):
+            height, width = get_image_size(self[idx])
             boxes_np = target[LabelKeys.BOXES].cpu().numpy()
+
+            boxes_np[:, 0:2] = np.clip(boxes_np[:, 0:2], a_min=0)
+            boxes_np[:, 3] = np.clip(boxes_np[:, 3], a_max=width)
+            boxes_np[:, 4] = np.clip(boxes_np[:, 4], a_max=height)
+
             labels_np = target[LabelKeys.LABELS].cpu().numpy()
             scores_np = target["scores"].cpu().numpy()
 

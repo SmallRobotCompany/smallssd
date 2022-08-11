@@ -19,4 +19,4 @@ python pseudo_labels.py --version <PATH_TO_FULLY_TRAINED_MODEL> --model <FULLY_T
 Alternatively, the logic in both scripts is combined in the [end to end](end_to_end.py) script.
 
 PyTorch torchvision detection models should be drop in replaceable to this pipeline; we currently train
-Faster R-CNN, Retinanet and SSD models.
+Faster R-CNN, Retinanet, YOLO and SSD models.

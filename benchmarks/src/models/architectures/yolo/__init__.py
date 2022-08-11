@@ -42,8 +42,6 @@ def _load_darknet_weights(network_for_weight_file, new_model, weight_file):
         if org_tensor.shape != new_tensor.shape:
             print("weight file has incorrect shape for this tensor")
             return
-        else:
-            print(org_tensor.shape, new_tensor.shape)
         if x.shape[0] == 0:
             print("No more data!")
             return

@@ -12,6 +12,7 @@ from src.utils import download_from_url
 from typing import Tuple
 
 
+DEFAULT_YOLO_LEARNING_RATE = 0.001
 DEFAULT_WEIGHT_PATH = Path(__file__).parent / "yolov4.weights"
 YOLOv4_DARKNET_WEIGHTS = "https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights"
 
@@ -110,4 +111,4 @@ def initialize_yolo(
             download_from_url(YOLOv4_DARKNET_WEIGHTS, DEFAULT_WEIGHT_PATH)
         with DEFAULT_WEIGHT_PATH.open() as weight_file:
             load_darknet_weights(weight_file, model)
-    return model, 0.001
+    return model, DEFAULT_YOLO_LEARNING_RATE

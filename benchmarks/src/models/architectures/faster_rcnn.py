@@ -2,12 +2,14 @@ from torch import nn
 
 from typing import Optional
 
-from ...config import NUM_OUTPUT_CLASSES
+from ...config import NUM_OUTPUT_CLASSES, DEFAULT_LEARNING_RATE
 
 from torchvision.models.detection.faster_rcnn import (
     FastRCNNPredictor,
     fasterrcnn_resnet50_fpn,
 )
+
+from typing import Tuple
 
 
 def initialize_fasterrcnn(
@@ -15,7 +17,7 @@ def initialize_fasterrcnn(
     pretrained: bool = False,
     pretrained_backbone: bool = True,
     trainable_backbone_layers: Optional[int] = 5,
-) -> nn.Module:
+) -> Tuple[nn.Module, float]:
     """
     Args:
         num_classes: number of detection classes (including background)
@@ -32,4 +34,4 @@ def initialize_fasterrcnn(
     in_features = model.roi_heads.box_predictor.cls_score.in_features
     model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
 
-    return model
+    return model, DEFAULT_LEARNING_RATE

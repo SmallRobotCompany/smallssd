@@ -7,3 +7,5 @@ BATCH_SIZE = 2
 MAX_PSUEDO_LABELLED_IMAGES = 2000
 
 TEST_MAP_KWARGS = {"max_detection_thresholds": [100], "class_metrics": True}
+
+DEFAULT_LEARNING_RATE = 1e-5

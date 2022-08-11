@@ -4,9 +4,9 @@ from typing import Any
 
 from torchvision.models.detection.retinanet import RetinaNetHead, retinanet_resnet50_fpn
 
-from typing import Optional
+from typing import Optional, Tuple
 
-from ...config import NUM_OUTPUT_CLASSES
+from ...config import NUM_OUTPUT_CLASSES, DEFAULT_LEARNING_RATE
 
 
 def initialize_retinanet(
@@ -15,7 +15,7 @@ def initialize_retinanet(
     pretrained_backbone: bool = True,
     trainable_backbone_layers: Optional[int] = 5,
     **kwargs: Any,
-) -> nn.Module:
+) -> Tuple[nn.Module, float]:
     model = retinanet_resnet50_fpn(
         pretrained=pretrained,
         pretrained_backbone=pretrained_backbone,
@@ -29,4 +29,4 @@ def initialize_retinanet(
         num_classes=num_classes,
         **kwargs,
     )
-    return model
+    return model, DEFAULT_LEARNING_RATE

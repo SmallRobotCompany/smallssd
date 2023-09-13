@@ -66,7 +66,6 @@ def test_data_with_model():
 
 
 def test_split(tmp_path):
-
     image_folder_name = IMAGES
     image_path = tmp_path / image_folder_name
     image_path.mkdir()

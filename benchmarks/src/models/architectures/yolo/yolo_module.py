@@ -210,7 +210,6 @@ class YOLO(nn.Module):
                 )
 
         if targets is not None:
-
             if len(images) != len(targets):
                 raise ValueError(
                     f"Got {len(images)} images, but targets for {len(targets)} images."

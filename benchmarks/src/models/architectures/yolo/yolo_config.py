@@ -13,7 +13,6 @@ DEFAULT_CLASSES = 80
 
 
 def generate_config(num_output_classes: int = 2) -> Iterable[str]:
-
     # https://ai.stackexchange.com/questions/18273/yolov3-
     # model-structure-why-is-filters-classes-coords-1-num
     num_filters = (num_output_classes + 5) * 3

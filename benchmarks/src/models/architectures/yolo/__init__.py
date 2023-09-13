@@ -95,7 +95,6 @@ def initialize_yolo(
     nms_threshold: float = 0.7,
     max_predictions_per_image: int = -1,
 ) -> Tuple[nn.Module, float]:
-
     config_lines = generate_config(num_classes)
     model_config = YOLOConfiguration(config_lines)
     model = YOLO(

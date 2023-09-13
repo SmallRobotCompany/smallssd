@@ -115,7 +115,6 @@ class AugmentedDataset(LabelledData):
     def split(
         cls, root: Path, augmentations: Callable, eval: bool, ratio: float = 0.2
     ) -> Tuple["AugmentedDataset", "AugmentedDataset"]:
-
         ds1 = cls(root=root, augmentations=augmentations, eval=eval)
         ds2 = cls(root=root, augmentations=augmentations, eval=eval)
 

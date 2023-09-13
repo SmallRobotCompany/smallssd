@@ -39,7 +39,6 @@ class PseudoLabelledData(UnlabelledData):
 
     @staticmethod
     def _create_mask(labels: np.ndarray, scores: np.ndarray) -> np.ndarray:
-
         return ((labels == CLASSNAME_TO_IDX["wheat"]) & (scores >= 0.2)) | (
             (labels == CLASSNAME_TO_IDX["weed"]) & (scores >= 0.3)
         )
@@ -127,7 +126,6 @@ class PseudoAndRealLabels:
 def update_datamodule(
     module: SmallSSDDataModule, psuedo_labels: PseudoLabelledData
 ) -> SmallSSDDataModule:
-
     assert psuedo_labels.inference_run
     new_train_ds = PseudoAndRealLabels(module.train_ds, psuedo_labels)
     module.train_ds = new_train_ds

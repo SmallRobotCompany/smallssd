@@ -107,6 +107,7 @@ class LabelledData(BaseDataset):
         transforms: Optional[Callable] = None,
         eval: bool = False,
         download: bool = True,
+        convert_image_to_tensor: bool = True,
     ):
         super().__init__(
             root=root,
@@ -115,6 +116,7 @@ class LabelledData(BaseDataset):
             download=download,
         )
         self.eval = eval
+        self.convert_image_to_tensor = convert_image_to_tensor
 
     @staticmethod
     def load_json(json_path: Path) -> Dict[str, torch.Tensor]:
@@ -179,7 +181,11 @@ class LabelledData(BaseDataset):
             [self.load_json(annotation_path) for annotation_path in annotations_paths]
         )
 
-        img = F.pil_to_tensor(Image.open(image_path)).float() / 255
+        img = Image.open(image_path)
+        img = img.convert("RGB")
+        if self.convert_image_to_tensor:
+            img = F.pil_to_tensor(img).float() / 255
+
         if self.transforms is not None:
             img, annos = self.transforms(img, annos)
 
@@ -199,6 +205,7 @@ class UnlabelledData(BaseDataset):
         root: Path = DATAFOLDER_PATH,
         transforms: Optional[Callable] = None,
         download: bool = True,
+        convert_image_to_tensor: bool = True,
     ):
         super().__init__(
             root=root,
@@ -206,10 +213,14 @@ class UnlabelledData(BaseDataset):
             transforms=transforms,
             download=download,
         )
+        self.convert_image_to_tensor = convert_image_to_tensor
 
     def __getitem__(self, idx: int) -> torch.Tensor:
         image_path = self.image_paths[idx]
-        img = F.pil_to_tensor(Image.open(image_path)).float() / 255
+        img = Image.open(image_path)
+        img = img.convert("RGB")
+        if self.convert_image_to_tensor:
+            img = F.pil_to_tensor(img).float() / 255
         if self.transforms is not None:
             img = self.transforms(img)
         return img
